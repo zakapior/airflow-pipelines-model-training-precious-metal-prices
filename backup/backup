@@ -1,0 +1,26 @@
+#!/bin/bash
+PROJ_DIR="/home/ubuntu/jakluz-DE2.4"
+DATE=$(date '+%Y-%m-%d_%H:%M:%S')
+# Get database credentials for the database from .env file
+source $PROJ_DIR"/.env"
+
+# Set the database name the environment
+DB_NAME="metal_prices"
+BACKUP_FILE=$DB_NAME"_backup.sql"
+BACKUP_DIR=$PROJ_DIR"/backup/backup_"$DATE
+LOG_FILE=$PROJ_DIR"/backup/metal_prices_backup.log"
+
+echo "Database "$DB_NAME" backup starting on ${DATE}" >> $LOG_FILE
+
+# Create the backup folder
+mkdir $BACKUP_DIR
+
+# Dump the database to a file
+echo "${PGPASSWORD}"
+PGPASSWORD=$DB_PASSWORD pg_dump --host=$DB_HOSTNAME -U $DB_USERNAME $DB_NAME > $BACKUP_DIR/$BACKUP_FILE 2>> $LOG_FILE
+
+## Copy the files with model
+cp -r --preserve $PROJ_DIR/output/* $BACKUP_DIR/ 2>> $LOG_FILE
+
+## Clean up
+(cd $BACKUP_DIR/.. && ls -tpd backup_* | tail -n +21 | xargs -I {} rm -rf -- {})
