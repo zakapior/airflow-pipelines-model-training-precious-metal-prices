@@ -1,7 +1,7 @@
 ### Portfolio project
 # Apache Airflow pipelines for data collection and machine learning model training
 
-This is repository for Turing College Data Engineering course Module 2 Sprint 4 - **Fundamentals of Data Engineering: Capstone Project**.
+This is repository for Turing College Data Engineering course **Capstone Project**.
 
 The point of this project is to prepare an Apache Airflow data pipeline for the machine learning algorithm and further analysis. I am required to choose the source of the project, implement the data pipeline that would upload the data to the database, and create a separate pipeline to train an save the model. The data I am working with is precious metal prices and the model is given by the team as a Python program, that I need to extend and adjust, so it can read the training data from the database.
 
